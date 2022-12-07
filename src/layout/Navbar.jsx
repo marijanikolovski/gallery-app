@@ -47,7 +47,7 @@ export const Navbar = () => {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/">Galleries</Link>
+              <Link to="/galleries">Galleries</Link>
             </li>
           </>
         )}

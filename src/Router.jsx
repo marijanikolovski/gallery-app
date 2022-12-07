@@ -31,9 +31,12 @@ export const Router = () => {
       <GuestRoute path="/login">
         <AppLogin />
       </GuestRoute>
-      <PrivateRoute exact path="/">
+      <PrivateRoute exact path="/galleries">
         <AppGalleries />
       </PrivateRoute>
+      <Route exact path="/">
+            <Redirect to="/galleries"/>
+      </Route>
     </Switch>
   );
 };
