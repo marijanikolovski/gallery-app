@@ -4,7 +4,8 @@ import { AppLogin } from "./pages/AppLogin";
 import { AppRegister } from "./pages/AppRegister";
 import { useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
-import { AppGalleries, AppGallerys } from "./pages/AppGalleries";
+import { AppGalleries } from "./pages/AppGalleries";
+import { AddGallery } from "./pages/AddGallery";
 
 function GuestRoute({ children, ...props }) {
   const isGuest = !useSelector(selectToken);
@@ -34,6 +35,9 @@ export const Router = () => {
       <PrivateRoute exact path="/galleries">
         <AppGalleries />
       </PrivateRoute>
+      <PrivateRoute path='/create'>
+            <AddGallery />
+        </PrivateRoute>
       <Route exact path="/">
             <Redirect to="/galleries"/>
       </Route>

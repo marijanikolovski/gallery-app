@@ -37,6 +37,9 @@ export const Navbar = () => {
             <li>
               <Link to="/">Galleries</Link>
             </li>
+            <li>
+              <Link to="/create">Create New Gallery</Link>
+            </li>
           </>
         ) : (
           <>

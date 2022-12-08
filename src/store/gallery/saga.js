@@ -6,6 +6,10 @@ import {
   setPaginated,
   getGalleries,
   getGallery,
+  setGalleriesWithNewGallery,
+  addGallery,
+  editGallery,
+  deleteGallery,
 } from "./slice";
 
 function* getGalleriesHandler(action) {
@@ -30,7 +34,42 @@ function* getGalleryHandler(action) {
   }
 }
 
+function* addGalleryHandler(action) {
+  try {
+    const newGallery = yield call(galeryService.add, action.payload);
+    yield put(setGalleriesWithNewGallery(newGallery));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* editGalleryHandler(action) {
+  try {
+    const gallery = yield call(
+      galeryService.edit,
+      action.payload.newGallery.id,
+      action.payload.newGallery
+    );
+    yield put(setGalleriesWithNewGallery(gallery));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* deleteGalleryHandler(action) {
+  try {
+    yield call(galeryService.delete, action.payload);
+    const gallery = yield call(galeryService.getAll);
+    yield put(setGalleries(gallery));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* watchForGalleriesSagas() {
   yield takeLatest(getGalleries.type, getGalleriesHandler);
   yield takeLatest(getGallery.type, getGalleryHandler);
+  yield takeLatest(addGallery.type, addGalleryHandler);
+  yield takeLatest(editGallery.type, editGalleryHandler);
+  yield takeLatest(deleteGallery.type, deleteGalleryHandler);
 }

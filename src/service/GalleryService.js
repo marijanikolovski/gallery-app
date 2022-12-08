@@ -12,6 +12,21 @@ class GalleryService {
     const { data } = await axiosInstance.get(`/galleries/${id}`);
     return data;
   };
+
+  add = async (newGallery) => {
+    const { data } = await axiosInstance.post("/galleries", newGallery);
+    return data;
+  };
+
+  edit = async (galleryId, newGallery) => {
+    const { data } = await axiosInstance.put(`galleries/${galleryId}`, newGallery);
+    return data;
+  };
+
+  delete = async (id) => {
+    const { data } = await axiosInstance.delete(`galleries/${id}`);
+    return data;
+  };
 }
 
 export const galeryService = new GalleryService();
