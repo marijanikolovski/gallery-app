@@ -19,8 +19,8 @@ export function GalleryRow({ gallery }) {
           <div>Created at: {formattedDate}</div>
         )}
         By:{" "}
-        <Link to={`/authors/${gallery.user.id}`}>
-          {gallery.user.first_name} {gallery.user.last_name}
+        <Link to={`/authors/${gallery?.user.id}`}>
+          {gallery?.user?.first_name} {gallery?.user?.last_name}
         </Link>
       </div>
     </div>

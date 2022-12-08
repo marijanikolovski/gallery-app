@@ -6,6 +6,8 @@ const middlewareActions = {
   addGallery: () => {},
   editGallery: () => {},
   deleteGallery: () => {},
+  addComment: () => {},
+  deleteComment: () => {},
 };
 
 export const galleriesSlice = createSlice({
@@ -36,6 +38,10 @@ export const galleriesSlice = createSlice({
       state.newGallery = action.payload;
     },
 
+    setResetForm(state) {
+      state.newGallery = {};
+    },
+
     setPaginated(state, action) {
       state.page.data = [...state.page.data, ...action.payload.data];
       state.page.current_page = action.payload.current_page;
@@ -43,6 +49,17 @@ export const galleriesSlice = createSlice({
 
     setGalleriesWithNewGallery(state, action) {
       state.page.data = [...state.page.data, action.payload];
+    },
+
+    setGalleryWithNewComment(state, action) {
+      state.gallery = {
+        ...state.gallery,
+        comments: [...state.gallery.comments, action.payload],
+      };
+    },
+
+    setGalleryWithoutComment(state) {
+      state.gallery = state.gallery;
     },
 
     ...middlewareActions,
@@ -60,6 +77,11 @@ export const {
   addGallery,
   editGallery,
   deleteGallery,
+  setGalleryWithNewComment,
+  setGalleryWithoutComment,
+  addComment,
+  deleteComment,
+  setResetForm,
 } = galleriesSlice.actions;
 
 export default galleriesSlice.reducer;

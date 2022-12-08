@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
 import { AppGalleries } from "./pages/AppGalleries";
 import { AddGallery } from "./pages/AddGallery";
+import { SingleGallery } from "./pages/SingleGallery";
 
 function GuestRoute({ children, ...props }) {
   const isGuest = !useSelector(selectToken);
@@ -34,6 +35,12 @@ export const Router = () => {
       </GuestRoute>
       <PrivateRoute exact path="/galleries">
         <AppGalleries />
+      </PrivateRoute>
+      <PrivateRoute path='/galleries/:id'>
+       <SingleGallery />
+      </PrivateRoute>
+      <PrivateRoute path='/edit-gallery/:id'>
+        <AddGallery />
       </PrivateRoute>
       <PrivateRoute path='/create'>
             <AddGallery />

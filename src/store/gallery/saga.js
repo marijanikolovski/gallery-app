@@ -10,6 +10,10 @@ import {
   addGallery,
   editGallery,
   deleteGallery,
+  setGalleryWithNewComment,
+  setGalleryWithoutComment,
+  addComment,
+  deleteComment,
 } from "./slice";
 
 function* getGalleriesHandler(action) {
@@ -66,10 +70,30 @@ function* deleteGalleryHandler(action) {
   }
 }
 
+function* addCommentHendle(action) {
+  try {
+    const newComment = yield call(galeryService.addComment, action.payload);
+    yield put(setGalleryWithNewComment(newComment));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* deleteCommentHandle(action) {
+  try {
+    const comment = yield call(galeryService.deleteComment, action.payload);
+    yield put(setGalleryWithoutComment(comment));
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
 export function* watchForGalleriesSagas() {
   yield takeLatest(getGalleries.type, getGalleriesHandler);
   yield takeLatest(getGallery.type, getGalleryHandler);
   yield takeLatest(addGallery.type, addGalleryHandler);
   yield takeLatest(editGallery.type, editGalleryHandler);
   yield takeLatest(deleteGallery.type, deleteGalleryHandler);
+  yield takeLatest(addComment.type, addCommentHendle);
+  yield takeLatest(deleteComment.type, deleteCommentHandle);
 }
