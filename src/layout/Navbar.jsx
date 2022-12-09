@@ -40,6 +40,9 @@ export const Navbar = () => {
             <li>
               <Link to="/create">Create New Gallery</Link>
             </li>
+            <li>
+              <Link to="/my-galleries">My Galleries</Link>
+            </li>
           </>
         ) : (
           <>
@@ -50,7 +53,7 @@ export const Navbar = () => {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/galleries">Galleries</Link>
+              <Link to="/galleries">All Galleries</Link>
             </li>
           </>
         )}

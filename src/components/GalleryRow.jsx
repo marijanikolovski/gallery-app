@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import useFormattedDate from "../hooks/useFormattedDate";
 
-export function GalleryRow({ gallery }) {
-    const formattedDate = useFormattedDate(gallery.created_at, "dd-MM-yyyy HH:mm");
+export function GalleryRow({
+  gallery,
+  current_page,
+  last_page,
+  handlePaginate,
+}) {
+  const formattedDate = useFormattedDate(gallery.created_at, "dd-MM-yyyy HH:mm");
 
   return (
     <div>
@@ -23,6 +28,11 @@ export function GalleryRow({ gallery }) {
           {gallery?.user?.first_name} {gallery?.user?.last_name}
         </Link>
       </div>
+      {current_page !== last_page && (
+        <button onClick={() => handlePaginate(current_page + 1)}>
+          Load More
+        </button>
+      )}
     </div>
   );
 }

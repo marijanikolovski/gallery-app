@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { AppLogin } from "./pages/AppLogin";
 import { AppRegister } from "./pages/AppRegister";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "./store/user/selector";
 import { AppGalleries } from "./pages/AppGalleries";
 import { AddGallery } from "./pages/AddGallery";
 import { SingleGallery } from "./pages/SingleGallery";
+import { getActiveUser } from "./store/user/slice";
 
 function GuestRoute({ children, ...props }) {
   const isGuest = !useSelector(selectToken);
@@ -25,6 +26,16 @@ function PrivateRoute({ children, ...props }) {
 }
 
 export const Router = () => {
+  const isAuthenticated = useSelector(selectToken);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getActiveUser())
+    }
+  }, [])
+  
+  
   return (
     <Switch>
       <GuestRoute path="/register">
@@ -34,6 +45,9 @@ export const Router = () => {
         <AppLogin />
       </GuestRoute>
       <PrivateRoute exact path="/galleries">
+        <AppGalleries />
+      </PrivateRoute>
+      <PrivateRoute path="/my-galleries">
         <AppGalleries />
       </PrivateRoute>
       <PrivateRoute path='/galleries/:id'>

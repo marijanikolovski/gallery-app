@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { selectGallery, selectNewGallery } from "../store/gallery/selector";
-import { refreshToken } from "../store/user/slice";
 import { selectToken } from "../store/user/selector";
 import { galeryService } from "../service/GalleryService";
 
@@ -25,16 +24,6 @@ export const AddGallery = () => {
       url: "",
     },
   ]);
-
-  const handleRefreshToken = async () => {
-    if (isAuthenticated) {
-      dispatch(refreshToken());
-    }
-  };
-
-  useEffect(() => {
-    handleRefreshToken();
-  }, []);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
