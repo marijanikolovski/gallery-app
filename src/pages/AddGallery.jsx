@@ -43,7 +43,7 @@ export const AddGallery = () => {
     } else {
       dispatch(addGallery({ ...newGallery, images: newImages }));
       dispatch(setResetForm());
-      history.push("/galleries/me");
+      history.push("/my-galleries");
     }
     dispatch(setResetForm());
   };

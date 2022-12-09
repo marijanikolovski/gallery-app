@@ -11,7 +11,7 @@ const middlewareActions = {
 export const usersSlice = createSlice({
   name: "auth",
   initialState: {
-    activeUser: null,
+    activeUser: {},
     token: localStorage.getItem("token"),
   },
   reducers: {

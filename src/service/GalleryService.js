@@ -1,8 +1,12 @@
 import { axiosInstance } from "./HttpService";
 
 class GalleryService {
-  getAll = async (page = 0) => {
+  getAll = async (page = 0, userId ="") => {
     let endpoint = `/galleries/?page=${page}`;
+
+    if (userId){
+      endpoint += `&userId=${userId}`;
+    }
 
     const { data } = await axiosInstance.get(endpoint);
     return data;

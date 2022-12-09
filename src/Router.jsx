@@ -8,6 +8,7 @@ import { AppGalleries } from "./pages/AppGalleries";
 import { AddGallery } from "./pages/AddGallery";
 import { SingleGallery } from "./pages/SingleGallery";
 import { getActiveUser } from "./store/user/slice";
+import { selectActiveUser } from "./store/user/selector";
 
 function GuestRoute({ children, ...props }) {
   const isGuest = !useSelector(selectToken);
@@ -27,6 +28,7 @@ function PrivateRoute({ children, ...props }) {
 
 export const Router = () => {
   const isAuthenticated = useSelector(selectToken);
+  const activeUser = useSelector(selectActiveUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export const Router = () => {
         <AppGalleries />
       </PrivateRoute>
       <PrivateRoute path="/my-galleries">
-        <AppGalleries />
+        <AppGalleries myId={isAuthenticated ? (activeUser?.id) : null}/>
       </PrivateRoute>
       <PrivateRoute path='/galleries/:id'>
        <SingleGallery />
