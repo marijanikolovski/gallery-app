@@ -3,27 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectGalleries } from "../store/gallery/selector";
 import { getGalleries, setSearchUserId } from "../store/gallery/slice";
 import { GalleryRow } from "../components/GalleryRow";
+import { useParams } from "react-router-dom";
 
 export const AppGalleries = ({ myId }) => {
   const dispatch = useDispatch();
   const galleries = useSelector(selectGalleries);
+  const { id } = useParams()
 
   useEffect(() => {
     if (myId) {
       dispatch(setSearchUserId(myId));
       dispatch(getGalleries({ page: 1, userId: myId }));
     }
-    if (!myId) {
+    if(id){
+      dispatch(setSearchUserId(id));
+      dispatch(getGalleries({page: 1, userId: id}));
+  }
+    if (!id && !myId) {
       dispatch(setSearchUserId(null));
       dispatch(getGalleries({ page: 1, userId: null }));
     }
-  }, [myId, dispatch]);
+  }, [myId, id, dispatch]);
 
   function handlePaginate(page) {
     if (myId) {
       dispatch(getGalleries({ page: page, userId: myId }));
     }
-    if (!myId) {
+    if(id){
+      dispatch(getGalleries({page: page, userId: id}));
+  }
+    if (!id && !myId) {
       dispatch(getGalleries({ page: page, userId: null }));
     }
   }

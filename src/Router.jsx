@@ -52,6 +52,9 @@ export const Router = () => {
       <PrivateRoute path="/my-galleries">
         <AppGalleries myId={isAuthenticated ? (activeUser?.id) : null}/>
       </PrivateRoute>
+      <PrivateRoute path="/authors/:id">
+        <AppGalleries />
+      </PrivateRoute>
       <PrivateRoute path='/galleries/:id'>
        <SingleGallery />
       </PrivateRoute>
