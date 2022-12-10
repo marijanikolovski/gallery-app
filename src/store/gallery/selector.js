@@ -6,9 +6,12 @@ const selectNewGallery = (state) => state.galleries.newGallery
 
 const selectSearcUserId = (state) => state.galleries.userId
 
+const selectSearchTerm = (state) => state.galleries.term;
+
 export { 
     selectGalleries, 
     selectGallery,
     selectNewGallery,
     selectSearcUserId,
+    selectSearchTerm
 };

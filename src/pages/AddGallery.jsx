@@ -76,7 +76,7 @@ export const AddGallery = () => {
     if (id) {
       history.push(`/galleries/${gallery.id}`);
     } else {
-      history.push("/galleries/me");
+      history.push("/my-galleries");
     }
   };
 

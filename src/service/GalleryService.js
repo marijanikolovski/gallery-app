@@ -1,8 +1,12 @@
 import { axiosInstance } from "./HttpService";
 
 class GalleryService {
-  getAll = async (page = 0, userId ="") => {
+  getAll = async (page = 0, term = "", userId ="") => {
     let endpoint = `/galleries/?page=${page}`;
+
+    if (term){
+      endpoint += `&term=${term}`;
+    }
 
     if (userId){
       endpoint += `&userId=${userId}`;

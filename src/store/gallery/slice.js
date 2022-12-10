@@ -25,6 +25,7 @@ export const galleriesSlice = createSlice({
       images: [],
     },
     userId: null,
+    term: null
   },
   reducers: {
     setGalleries(state, action) {
@@ -38,6 +39,10 @@ export const galleriesSlice = createSlice({
     setNewGallery(state, action) {
       state.newGallery = action.payload;
     },
+
+    setSearchTerm(state, action){
+      state.term = action.payload;
+  },
 
     setSearchUserId(state, action) {
       state.userId = action.payload;
@@ -88,6 +93,7 @@ export const {
   deleteComment,
   setResetForm,
   setSearchUserId,
+  setSearchTerm
 } = galleriesSlice.actions;
 
 export default galleriesSlice.reducer;

@@ -18,7 +18,7 @@ import {
 
 function* getGalleriesHandler(action) {
   try {
-    const galleries = yield call(galeryService.getAll, action.payload.page, action.payload?.userId);
+    const galleries = yield call(galeryService.getAll, action.payload.page, action.payload?.term, action.payload?.userId);
     if (action.payload?.page > 1) {
       yield put(setPaginated(galleries));
     } else {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGallery } from "../store/gallery/selector";
@@ -28,16 +29,6 @@ export const SingleGallery = () => {
   const [newComment, setNewComment] = useState({
     content: "",
   });
-
-  const handleRefreshToken = async () => {
-    if (isAuthenticated) {
-      dispatch(refreshToken());
-    }
-  };
-
-  useEffect(() => {
-    handleRefreshToken();
-  }, []);
 
   const handleEditGallery = (id) => {
     history.push(`/edit-gallery/${id}`);
@@ -83,7 +74,10 @@ export const SingleGallery = () => {
       )}
       <h1>{gallery.title}</h1>
       <h4>
-        By: {gallery?.user?.first_name} {gallery?.user?.last_name}
+        By:{" "}
+        <Link to={`/authors/${gallery?.user?.id}`}>
+          {gallery?.user?.first_name} {gallery?.user?.last_name}
+        </Link>
       </h4>
       <div>
         {formattedDate === "unknown" ? (
