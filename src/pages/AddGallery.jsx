@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  getGallery,
   addGallery,
   editGallery,
   setNewGallery,
@@ -9,15 +8,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { selectGallery, selectNewGallery } from "../store/gallery/selector";
-import { selectToken } from "../store/user/selector";
-import { galeryService } from "../service/GalleryService";
+import { AddGalleryComponent } from "../components/AddGalleryComponent";
 
 export const AddGallery = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const gallery = useSelector(selectGallery);
   const history = useHistory();
-  const isAuthenticated = useSelector(selectToken);
   const newGallery = useSelector(selectNewGallery);
   const [newImages, setNewImages] = useState([
     {
@@ -48,12 +45,6 @@ export const AddGallery = () => {
     dispatch(setResetForm());
   };
 
-  const handleGetSingleGallery = async (id) => {
-    if (id) {
-      const response = await galeryService.get(id);
-      dispatch(setNewGallery(response));
-    }
-  };
 
   const handleInputChange = (e, index) => {
     const list = [...newImages];
@@ -81,67 +72,25 @@ export const AddGallery = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      handleGetSingleGallery(id);
+    if(id){
+        dispatch(setNewGallery(gallery));
+        setNewImages(gallery?.images);
     }
-  }, [id]);
+}, [id])
 
   return (
     <div>
-      {id ? (
-        <h2 style={{ padding: "10px" }}>Create New Gallery</h2>
-      ) : (
-        <h2>Create New Gallery</h2>
-      )}
-      <form onSubmit={handleOnSubmit}>
-        <input
-          required
-          type="text"
-          placeholder="Title"
-          value={newGallery.title}
-          onChange={({ target }) =>
-            dispatch(setNewGallery({ ...newGallery, title: target.value }))
-          }
-        />
-        <textarea
-          placeholder="Description"
-          value={newGallery.description}
-          onChange={({ target }) =>
-            dispatch(
-              setNewGallery({ ...newGallery, description: target.value })
-            )
-          }
-        />
-        {newImages &&
-          newImages.map((x, i) => {
-            return (
-              <div key={i}>
-                <input
-                  required
-                  name="url"
-                  value={x.url}
-                  placeholder="Image url goes here"
-                  onChange={(e) => handleInputChange(e, i)}
-                  key={i}
-                />
-                <span>
-                  {newImages?.length !== 1 && (
-                    <button onClick={() => handleRemoveClick(i)}>Remove</button>
-                  )}
-                </span>
-                <div>
-                  {newImages?.length - 1 === i && (
-                    <button onClick={handleAddClick}>Add more</button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        <span>
-          <button type="submit">{id ? "Edit" : "Add Gallery"}</button>
-          <button onClick={handleCancel}>Cancel</button>
-        </span>
-      </form>
+      <AddGalleryComponent 
+        key={gallery.id}
+        id={id}
+        newGallery={newGallery}
+        newImages={newImages}
+        handleOnSubmit={handleOnSubmit}
+        handleInputChange={handleInputChange}
+        handleRemoveClick={handleRemoveClick}
+        handleAddClick={handleAddClick}
+        handleCancel={handleCancel}
+      />
     </div>
   );
 };

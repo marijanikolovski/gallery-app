@@ -64,12 +64,15 @@ export const AppGalleries = ({ myId }) => {
               <GalleryRow
                 key={gallery.id}
                 gallery={gallery}
-                current_page={galleries.current_page}
-                last_page={galleries.last_page}
                 handlePaginate={handlePaginate}
               />
             ))}
           </ul>
+          {galleries.current_page !== galleries.last_page && (
+            <button onClick={() => handlePaginate(galleries.current_page + 1)}>
+              Load More
+            </button>
+            )}
         </div>
       ) : (
         <div>No galleries created.</div>

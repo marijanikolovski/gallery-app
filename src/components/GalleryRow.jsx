@@ -28,11 +28,6 @@ export function GalleryRow({
           {gallery?.user?.first_name} {gallery?.user?.last_name}
         </Link>
       </div>
-      {current_page !== last_page && (
-        <button onClick={() => handlePaginate(current_page + 1)}>
-          Load More
-        </button>
-      )}
     </div>
   );
 }
