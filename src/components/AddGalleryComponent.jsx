@@ -10,13 +10,14 @@ export const AddGalleryComponent = ({
     handleInputChange,
     handleRemoveClick,
     handleAddClick,
-    handleCancel
+    handleCancel,
+    changeOrder
 }) => {
     const dispatch = useDispatch()
     
   return (
     <div>
-              {id ? (
+      {id ? (
         <h2 style={{ padding: "10px" }}>Create New Gallery</h2>
       ) : (
         <h2>Create New Gallery</h2>
@@ -56,6 +57,8 @@ export const AddGalleryComponent = ({
                   {newImages?.length !== 1 && (
                     <button onClick={() => handleRemoveClick(i)}>Remove</button>
                   )}
+                    <button type="button" onClick={() => changeOrder(i, "UP")}>Move Up</button>
+                    <button type="button" onClick={() => changeOrder(i, "DOWN")}>Move Down</button>
                 </span>
                 <div>
                   {newImages?.length - 1 === i && (

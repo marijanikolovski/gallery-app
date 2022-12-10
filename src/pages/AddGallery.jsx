@@ -71,6 +71,32 @@ export const AddGallery = () => {
     }
   };
 
+  const reorderUrlList = (event, urlList) => {
+		const movedUrl = urlList.find(
+			(item, index) => index === event.oldIndex
+		);
+		const remainingUrls = urlList.filter(
+			(item, index) => index !== event.oldIndex
+		);
+
+		const reorderedItems = [
+			...remainingUrls.slice(0, event.newIndex),
+			movedUrl,
+			...remainingUrls.slice(event.newIndex),
+		];
+
+		return reorderedItems;
+	};
+
+  function changeOrder(index, position) {
+		setNewImages(
+			reorderUrlList(
+				{ oldIndex: index, newIndex: index + (position === "UP" ? -1 : 1) },
+				newImages
+			)
+		);
+	}
+
   useEffect(() => {
     if(id){
         dispatch(setNewGallery(gallery));
@@ -90,6 +116,7 @@ export const AddGallery = () => {
         handleRemoveClick={handleRemoveClick}
         handleAddClick={handleAddClick}
         handleCancel={handleCancel}
+        changeOrder={changeOrder}
       />
     </div>
   );
