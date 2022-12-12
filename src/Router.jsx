@@ -7,8 +7,9 @@ import { selectToken } from "./store/user/selector";
 import { AppGalleries } from "./pages/AppGalleries";
 import { AddGallery } from "./pages/AddGallery";
 import { SingleGallery } from "./pages/SingleGallery";
-import { getActiveUser } from "./store/user/slice";
+import { getActiveUser, logout,  } from "./store/user/slice";
 import { selectActiveUser } from "./store/user/selector";
+import axios from "axios";
 
 function GuestRoute({ children, ...props }) {
   const isGuest = !useSelector(selectToken);
@@ -34,10 +35,9 @@ export const Router = () => {
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(getActiveUser())
-    }
+    } 
   }, [])
-  
-  
+
   return (
     <Switch>
       <GuestRoute path="/register">

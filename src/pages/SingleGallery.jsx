@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGallery } from "../store/gallery/selector";
@@ -12,7 +13,6 @@ import {
   deleteComment,
 } from "../store/gallery/slice";
 import { selectToken, selectActiveUser } from "../store/user/selector";
-import { refreshToken } from "../store/user/slice";
 import { CommentComponent } from "../components/CommentComponent";
 
 export const SingleGallery = () => {
@@ -68,17 +68,30 @@ export const SingleGallery = () => {
     <div>
       {activeUser && activeUser.id === gallery.user_id && (
         <>
-          <button onClick={() => handleEditGallery(id)}>Edit</button>
-          <button onClick={() => handleDeleteGallery(id)}>Delete</button>
+          <Button
+            style={{ margin: "5px" }}
+            onClick={() => handleEditGallery(id)}
+          >
+            Edit
+          </Button>
+          <Button
+            style={{ margin: "px" }}
+            onClick={() => handleDeleteGallery(id)}
+          >
+            Delete
+          </Button>
         </>
       )}
-      <h1>{gallery.title}</h1>
-      <h4>
+      <h1 className="fw-bold mb-3 mt-md-4 mb-2 text-center">{gallery.title}</h1>
+      <h5>
         By:{" "}
-        <Link to={`/authors/${gallery?.user?.id}`}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/authors/${gallery?.user?.id}`}
+        >
           {gallery?.user?.first_name} {gallery?.user?.last_name}
         </Link>
-      </h4>
+      </h5>
       <div>
         {formattedDate === "unknown" ? (
           <div>Unknown date</div>
@@ -86,10 +99,11 @@ export const SingleGallery = () => {
           <div>Created at: {formattedDate}</div>
         )}
       </div>
-      <p>{gallery.description}</p>
       <div>
         <ImageComponent key={gallery.id} images={gallery.images} />
       </div>
+      <p className="justify-content-center">{gallery.description}</p>
+
       <div>
         <CommentComponent
           key={gallery.id}

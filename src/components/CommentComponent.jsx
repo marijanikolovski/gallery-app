@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectActiveUser } from "../store/user/selector";
 import useFormattedDate from "../hooks/useFormattedDate";
+import { Button } from "react-bootstrap";
 
 export const CommentComponent = ({
   gallery,
@@ -26,7 +27,7 @@ export const CommentComponent = ({
             {gallery.comments.map((comment) => (
               <li key={comment.id}>
                 <div>
-                  {comment.user.first_name} {comment.user.last_name}
+                  By: {comment.user.first_name} {comment.user.last_name}
                 </div>
                 <div>
                   {formattedDate === "unknown" ? (
@@ -57,7 +58,9 @@ export const CommentComponent = ({
                 setNewComment({ ...newComment, content: target.value })
               }
             />
-            <button>Create Comment</button>
+            <div>
+              <Button type="submit">Create Comment</Button>
+            </div>
           </form>
         </div>
       )}

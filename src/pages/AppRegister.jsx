@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { register } from "../store/user/slice";
+import { Button } from "react-bootstrap";
 
 export const AppRegister = () => {
   const dispatch = useDispatch();
@@ -31,10 +32,13 @@ export const AppRegister = () => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2 className="fw-bold mb-3 mt-md-4 mb-2 text-center text-uppercase ">
+        Register
+      </h2>
       <form onSubmit={handleSubmit}>
         <div>
           <input
+            className="mb-2"
             required
             value={credentials.first_name}
             placeholder="First Name"
@@ -45,9 +49,10 @@ export const AppRegister = () => {
         </div>
         <div>
           <input
+            className="mb-2"
             required
             value={credentials.last_name}
-            placeholder="Lasta Name"
+            placeholder="Last Name"
             onChange={({ target }) =>
               setCredentials({ ...credentials, last_name: target.value })
             }
@@ -55,6 +60,7 @@ export const AppRegister = () => {
         </div>
         <div>
           <input
+            className="mb-2"
             required
             value={credentials.email}
             type="email"
@@ -66,6 +72,7 @@ export const AppRegister = () => {
         </div>
         <div>
           <input
+            className="mb-2"
             required
             value={credentials.password}
             type="password"
@@ -90,8 +97,9 @@ export const AppRegister = () => {
           />
         </div>
         <div>
-          <label>Terms and Conditions</label>
+          <label className="mb-2">I accept terms and conditions.</label>
           <input
+            className="mb-2"
             required
             type="checkbox"
             name="terms"
@@ -101,7 +109,7 @@ export const AppRegister = () => {
             }
           />
         </div>
-        <button>Register</button>
+        <Button type="onsubimt">Register</Button>
       </form>
     </div>
   );

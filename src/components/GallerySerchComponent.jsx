@@ -1,18 +1,18 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
-export const GallerySerchComponent = ({
-    handleSearchTerm,
-    handleSearch
-}) => {
-
+export const GallerySerchComponent = ({ handleSearchTerm, handleSearch }) => {
   return (
-    <div>
+    <div className="d-lg-flex justify-content-center">
       <input
+        className="mr-3"
         type="text"
         onChange={handleSearchTerm}
         placeholder="Input search term here"
       />
-      <button onClick={handleSearch}>Search</button>
+      <Button style={{ margin: "5px" }} onClick={handleSearch}>
+        Search
+      </Button>
     </div>
   );
 };
