@@ -63,7 +63,7 @@ function* editGalleryHandler(action) {
 function* deleteGalleryHandler(action) {
   try {
     yield call(galeryService.delete, action.payload);
-    const gallery = yield call(galeryService.getAll);
+    const gallery = yield call(galeryService.getAll, 1, null, null);
     yield put(setGalleries(gallery));
   } catch (e) {
     console.error(e);

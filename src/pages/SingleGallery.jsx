@@ -45,7 +45,7 @@ export const SingleGallery = () => {
       return;
     }
     dispatch(deleteGallery(id));
-    history.push("/galleries");
+    history.push("/my-galleries");
   };
 
   const handleAddNewComment = (e) => {
